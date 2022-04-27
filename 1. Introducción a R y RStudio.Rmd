@@ -1,0 +1,87 @@
+---
+title: "1. Introducción a R y RStudio"
+output:
+  html_notebook: default
+  pdf_document: default
+---
+
+### Historia de R
+
+R es un software de código abierto, es decir, que puede ser editado por sus usuarios. Además, es un lenguaje de programación con su propio entorno (el lugar donde se puede leer este lenguaje), y está enfocado en el procesamiento de datos para análisis estadísticos.
+
+En términos de la abstracción que requiere el computador para leer un código y ejecutarlo, R es un software de alto nivel, el cual es más intuitivo para nosotros, y no tanto para el computador. Como cualquier lenguaje, R requiere especial atención en un inicio pero al comprender sus aspectos básicos es fácil desarrollar código más complejo.
+
+### Características de R
+- Sintaxis muy clara y legible.
+- Orientación a objetos intuitiva.
+- Enfocado, pero no limitado, a análisis estadísticos.
+- Tipos de datos dinámicos de muy alto nivel.
+
+
+### Comandos e interfaz de R y RStudio
+
+Al iniciar R, veremos la famosa consola, que es una ventana donde todo lo que escribamos R lo ejecutará, esté bien o mal. Lo primero que vemos es este mensaje:
+
+```{r warning=FALSE}
+R version 4.1.1 (2021-08-10) -- "Kick Things"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+```
+
+
+En seguida, podemos ver el símbolo `>` que indica que R está listo para ejecutar lo que escribamos. Ya que puede confundirse fácilmente con el símbolo de **menor que** `>`, es preferible que ejecutemos esto para iniciar sin perdernos.
+
+```{r}
+options(prompt="R> ")
+```
+
+Así, podemos ver que cada línea de código en la consola aparecerá como `R>`
+
+También podemos abrir una ventana de editor de textos, que podemos guardar como archivo de texto ejecutable o script, en la pestaña `File` como `new document/new script`. Estos archivos serán almacenados como "archivo.R". Aquí podemos escribir sin riesgo a que se esté ejecutando constantemente lo que escribimos. Eso no quiere decir que nos olvidaremos de la consola, que con práctica usaremos para una que otra tarea sencilla, pero el script puede ser usado como blog de notas para anotar lo que estamos haciendo y que quede registrado, una buena práctica al momento de programar y seguir un orden en nuestros análisis.
+
+Antes de iniciar un script, debemos escribir a detalle qué estamos haciendo para no perdernos y que otras personas puedan seguir nuestros pasos, haciendo replicable también esta parte de la ciencia. Para esto, usamos el símbolo `#` antes de lo que eramos comentar, sin que R lo considere algún comando a ejecutar. Así, podemos escribir 
+
+```{r}
+a <- 10 # objeto "a" que es igual a 10
+a
+```
+Y el resultado que arroja la consola, omitirá que escribimos un comentario.
+
+
+## Descarga e instalación de paquetes
+
+### Instalando paquetes (bibliotecas)
+
+>`install.packges("nombre_del_paquete")`
+
+La principal ventaja de R en la ciencia, es que podemos crear y usar algoritmos hechos para análisis desde muy generales hasta muy particulares. Es probable que ya exista uno para el problema que deseas resolver. Para empezar, hay que instalar algunos paquetes básicos que usaremos y unas aplicaciones dentro de RStudio que nos ayudaran a generar archivos más dinámicos y útiles para presentar nuestro progreso de una forma más elegante.
+
+```{r}
+install.packages("ggplot2")
+install.packages("dplyr")
+```
+
+### Cargando paquetes 
+>`library(nombre_del_paquete)`
+
+Ya que tenemos instalado un paquete, cada que vayamos a usarlo debemos pedirle a R que lo cargue para poder usarlo. Esto se debe hacer cada vez que abramos R/RStudio, en este caso la función `load()` no cargará los paquetes. Para cargar paquetes, usamos la función `library()`
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+
+
+
+
