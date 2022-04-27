@@ -1,0 +1,369 @@
+---
+title: "Conceptos básicos de programación en R"
+author: "M.C. Erik E. Aguilar Vaca"
+date: "4/27/2022"
+output: html_document
+---
+
+
+### Generalidades de R y RStudio
+
+Podemos notar hasta ahora que usamos algo llamado "funciones". Para R (también para otros lenguajes como Python), una función es un algoritmo definido en un conjunto de caracteres (p.ej. palabras) y seguido por dos paréntesis que contienen los argumentos para que el algoritmo trabaje `funcion(argumento1,argumento2,...)`
+
+```{r}
+a<-c(1,3,5,2,6,7,9,2,1,3,4,5,1,2,3) # c() compilar 
+a
+mean(x=a)
+```
+
+**Sensibilidad** 
+R es sensible a cómo escribimos, pueden existir funciones con el mismo nombre, pero que se escriban diferente: `Funcion()`, `funcion()`; para R, estas dos funciones son totalmente distintas.
+
+**Paréntesis** 
+Otra notación importante es que una función inicia y termina con un paréntesis. Así también pueden existir funciones dentro de funciones (algo muy común), por lo que siempre hay que cuidar que cuando abrimos un paréntesis, hay que cerrarlo para que R pueda ejecutar las funciones sin problema.
+
+**Comas** 
+Dentro de una función, siempre encontraremos argumentos y cada uno se separa por comas: `funcion(argumento1,argumento2,...)`. Un error muy común, es olvidar escribirlos, e inmediatamente R arrojará un error.
+
+Cada que iniciemos R y revisemos nuestro script, es práctico tener un orden y nombre del proyecto, funciones listas para instalar y cargar paquetes, cargar trabajo previo y guardar lo más reciente. Para esto podemos hacer comentarios escribiendo el símbolo `#` al inicio de cada línea, a forma de título al inicio del script, y continuar con las funciones que revisamos para instalar y cargar paquetes. 
+
+Es muy útil guardar y cargar lo que hemos hecho cada sesión, para esto usamos la función `load("nombre_de_archivo.R")` justo después de las funciones de `library()` y `save.image("nombre_de_archivo.R")` al final de todo el script. Así, evitaremos perder archivos si olvidamos guardarlo directamente en los botones de herramientas de R/RStudio.
+Como ejemplo, en el siguiente código podrás ver un formato básico para desarrollar tu script.
+
+
+```{r}
+###############################
+#### Proyecto:  Curso de R ####
+###############################
+# Nombre de autor 
+# Fecha
+# Versión de R
+# Análisis datos de mi proyecto
+
+install.packages("MASS") # instalar paquetes para trabajar
+install.packages("ggplot2")
+
+library(MASS) # cargar paquetes
+library(ggplot2)
+
+load("análisis_preliminar.R") # cargar trabajo previo
+
+#
+# líneas de código...
+#
+
+save.image("análisis_preliminar.R") # guardar trabajo realizado
+```
+
+**Preguntas en R**
+
+>`help()` , `?` , `??`
+
+Es común tener dudas sobre un paquete o sus funciones y podemos preguntarle a R sobre esto. En R podemos escribir un signo `?` seguido del nombre del paquete o función, o bien, usar la función `help()`, escribiendo dentro del paréntesis:
+
+```{r}
+?help
+help(help)
+```
+
+En este caso, el símbolo `?` es la función y estamos preguntando con él sobre la función `help()`. Nota que no usamos los paréntesis de la función que estamos preguntando. O bien, podemos usar la función `help()`, con el nombre de nuestra interrogante dentro del paréntesis.
+
+En RStudio, podemos acceder a la barra de búsqueda en la ventana del lado derecho en la pestaña "Help". Si hacemos una búsqueda, podremos ver que hace exactamente lo mismo que si usamos la función ´help()`.
+
+Cuando es difícil recordar tantos nombres de funciones o paquetes, pero tenemos una idea, podemos preguntar a R cómo se llama la función y R nos dirá las posibles coincidencias de lo que preguntamos:
+
+```{r}
+??ploci
+```
+
+R nos enviará a una página con los resultados posibles de la búsqueda. Puede ser muy confuso para R y arrojarnos muchos resultados lejos de lo que buscamos, siempre es mejor preguntar por el paquete donde está la función que buscamos.
+
+
+### Directorios de trabajo
+
+>`getwd()` , `setwd("usuario/escritorio/proyecto")`
+
+Cuando usamos la función de guardar, R automáticamente creará archivos en la carpeta que tiene asignada como "directorio de trabajo". Además, si le indicamos a R leer una base de datos de nuestra PC o algún sitio de internet, siempre lo hará ligado a esta carpeta. Si no estamos haciendo más que practicar o estudiar con R no habrá problema, pero si queremos hacer un seguimiento de nuestro progreso, tener las gráficas que generamos y bases de datos, será mejor asignar nosotros mismos el directorio de trabajo.
+
+Para saber dónde está nuestro directorio de trabajo, usamos la función `getwd()`, para asignar nuestro directorio `setwd("usuario/escritorio/proyecto")`
+
+Tan solo hay que abrir la ventana de la carpeta deseada, y en la parte superior dar click para ver la dirección similar al ejemplo. Recomiendo que todo trabajo que hagan, lo hagan en carpetas que tengan en la nube, como Google Drive, Dropbox o OneDrive.
+
+### R como calculadora
+
+![](https://ekuatio.com/wp-content/uploads/ecuacion-seg-grado-par-y-den-1.png){width=`300px`}
+
+**Sumas, restas, divisiones y multiplicación**
+
+-Sumas ( + )
+-Restas ( - )
+-Divisiones ( / )
+-Multiplicación ( * )
+
+```{r}
+x<-1
+a<-3
+b<-5
+y=20
+(a*(x+b))/y
+```
+
+Raíz cuadrada (sqrt())
+```{r}
+sqrt(9)
+```
+
+
+Logaritmos y exponencias
+
+```{r}
+x<-5
+log(x) # logaritmo natural
+log(x,base=10)
+```
+
+```{r}
+exp(x) # exponente natural
+exp(x)
+```
+
+**Notación científica ("E")**
+
+```{r}
+1797819191730111110009
+```
+```{r}
+0.0000000008
+```
+E/e = número*10^potencia
+
+
+
+### Objetos
+
+En programación y en R, los objetos facilitan el trabajo con grandes cantidades de datos y código, ya que podemos almacenar datos, letras, nombre o códigos en un objeto y realizar análisis o programar con ellos.Un objeto es un símbolo (palabra, palabra con números o palabras con puntos), nunca se inician con un número, siempre con alguna letra.
+
+>**Cómo se usa**
+>1a -> no es correcto
+>a1 -> es correcto
+
+
+### Vectores
+
+Un vector es un objeto con una colección de observaciones o medidas que pertenecen a una sola variable. En un vector, los datos siempre están ordenados (según el orden que le demos), y tienen una extensión definida. Es común usar el término *objeto* y *vector* para lo mismo, ya que en general, ambos son objetos.
+
+Veamos cómo crear un vector:
+```{r}
+x<- 1:100 # esto no es un vector, solo un objeto
+vector1<- c(1,2,3,4,5,6,7,8,9) # un vector se construye con la función c(), 
+                               # siempre separados por comas
+vector2<-c("a","b","c") #si son nombres o letras, se ponene entre comillas
+
+```
+
+Ya que tenemos los vectores en el espacio de trabajo (Enviroment, ventana superior derecha), escribimos solo el nombre del vector para ver su contenido.
+```{r}
+vector1
+vector2
+```
+
+La función `ls()` nos dice qué objetos tenemos en el espacio de trabajo, lo que ya hicimos.
+
+### Operaciones con vectores
+
+Si los vectores tienen valores numéricos, podemos realizar operaciones, desde sumas y restas hasta ecuaciones de diferente grado.Podemos usar el mismo vector como si fuera un número y aplicar operaciones como las siguientes
+```{r}
+vector1*5
+vector1/10
+
+vector1<-vector1/10
+```
+
+
+También podemos tener dos o más vectores para hacer operaciones con ellos mismos:
+```{r}
+x<-c(0:100)#  : va de un número a otro, siempre en enteros
+y<-c(100:0)
+z<-x*y # aquí estamos realizando la multiplicación de x * y y asignándola al objeto z
+z # siempre que escribimos el nombre de un vector u objeto, nos dará su contenido
+```
+
+
+
+#### Funciones útiles para vectores
+
+Como veremos más adelante, los vectores los usaremos contantemente al analizar datos, ya que es común extraer datos de una base y asignarlos a un vector para responder preguntas específicas. Aunque hay muchas más funciones, estas serán de uso común cada que usemos R.
+
+
+##### Secuencias (seq())
+
+Si queremos hacer una secuencia de días, cada 3 días ¿cómo le hacemos?
+```{r}
+seq(from=3,to=27,by=3)
+```
+
+```{r}
+vector3<-seq(from=3,to=27,length.out=40)
+vector3
+```
+
+##### Repeticiones (rep())
+
+Para crear repeteciones de números, variables (conjunto de datos), o nombres.
+```{r}
+rep(x=1,times=5)
+rep(x="nombre",times=3)
+
+rep(x=c(1,2,3),times=3)
+```
+
+
+##### Clasificación (sort())
+
+Nos ayuda a clasificar los datos o nombre de una variable.
+```{r}
+sort(x=c(2,-1,-10,3),decreasing = FALSE)
+
+sort(x=c(2,-1,-10,3))
+
+sort(x=c(2,-1,-10,3),decreasing = TRUE)
+```
+
+##### Extensión (length())
+
+Con este podemos saber la longitud o extensión de un vector, o definir su extensión.
+```{r}
+length(x=c(3,2,8,1))
+```
+```{r}
+x<-c(1:100)
+
+length(x)
+length(x=c(0:100))
+```
+
+### Extracción y adición de elementos
+
+Podemos consultar datos, extraerlos o agregarlos a un vector (veremos que también podemos hacerlo con una matriz o base de datos).
+```{r}
+vector1 <- c(5,-2.3,4,4,4,6,8,10,40221,-8)
+length(x=vector1)
+
+vector1[1]
+vector1[7]
+
+vector2<-vector1[1]
+vector2
+
+vector1[length(x=vector1)]
+```
+
+Para retirar elementos de un vector, tan solo hay que escribir el número precedido de un `-`. Al correr la línea, el elemento ya no será parte del vector.
+```{r}
+vector1
+
+vector1[-1] # todo lo que esté entre corchetes, es para preguntarle al vector por
+# posición del elemento
+
+vector1[-2]
+
+vector1[-length(x=vector1)]
+```
+
+Si queremos realizar operaciones entre los elementos de un vector, también podemos usar la función `sum()` para sumarlos y `prod()` para multiplicarlos.
+```{r}
+sum(vector1) # suma cada uno de los valores del vector
+
+prod(vector1) # multiplica cada valor del vector
+```
+
+
+
+### Matrices (matrix())
+
+Aunque una matriz se refiere al constructo matemático donde el producto de dos conjuntos _m_ x _n_, donde habrá un número definido de filas y columnas donde cada elementro tendrá una ubicación concreta. Otra forma de verlo, es como un conjunto de vectores asignados a un objeto: 2 o más columnas con 2 o más filas. Prácticamente, es como vemos organizados los datos en nuestras bases de datos.
+
+Su uso es esencial para muchos modelos estadísticos (p.ej. ecología de poblaciones), además de que la típica organización de nuestras bases de datos hacen útil el conocer cómo se manejan las matrices.
+
+Podemos crear matrices con la función `matrix`, donde tendremos llenar los argumentos con vectores o especificando el número de filas y columnas
+```{r}
+a<-c(2,3,1,5)
+b<-c(1,4,5,1)
+c<-c(5.6,1.3,2.3,7.1)
+
+Matriz<-matrix(data=c(a, b, c))
+Matriz
+```
+
+Podemos ver que si usamos sólo vectores, sin especificar el número de filas y/o columnas, los valores de los vectores se asingarán en una sola columna en el orden que escribimos los vectores dentro de la función.
+
+Por esto, siempre es mejor controlar cómo estamos organizando nuestros datos
+```{r}
+matriz1 <- matrix(data=c(-3,2,893,0.17),nrow=2,ncol=2) 
+# nrow indica el número de filas
+# col indica el número de columnas
+matriz1
+```
+
+La función `matrix()` acomoda los datos llenando cada columna hasta el número indicado de forma predeterminada. Si queremos acomodar los datos por fila hay que usar el argumento `byrow=TRUE`.
+```{r}
+matriz3 <- matrix(data=c(-3,2,893,0.17),nrow=2,ncol=2,byrow = TRUE)
+matriz3
+```
+
+Si queremos conocer el valor de algún elementro determinado, o bien, de los valores de una fila, podemos preguntar por posición, o extraer datos.
+```{r}
+matriz3
+
+matriz3[,2] # contenido de la columna 2
+matriz3[2,] # contenido de la fila 2
+
+matriz3[2,2] # posición de un valor/elemento determinado
+
+matriz3[2,-2] # retirando el valor de la posición [2,2] (el valor 0.17)
+              # nota que la consola solo muestra los valores estantes
+              # en este caso, solo muestra el valor 893
+
+matriz3[,-2] # retirando toda la segunda columna
+```
+
+Para poder combinar _n_ vectores de la misma longitud y crear una matriz, podemos usar la función `cbind()` para unirlos como columnas o `rbind()` para unirlos como filas:
+```{r}
+cbind(c(1,4),c(2,5),c(3,6)) # unirlos en columnas
+
+rbind(1:3,4:6) # unirlos en filas
+
+```
+
+Si queremos conocer la dimensión de nuestra base/matriz, podemos preguntar por el tamaño de todo con `dim()` el conjunto o bien, por filas `nrow()` y columnas `ncol()`:
+```{r}
+matriz2 <- rbind(c(1,3,4),5:3,c(100,20,90),11:13)
+matriz2
+
+
+dim(matriz2) # nos dice cuantas filas y columnas hay
+nrow(matriz2) # nos dice cuántos elementos hay por fila
+ncol(matriz2) # nos dice cuántos elementos hay por columna
+dim(matriz2)[2] # nos dice cuantos elementos hay en la fila 2
+                # este último, sólo funciona por filas con []
+```
+
+Otra forma de preguntar por los elementos de una matriz es con operadores lógicos
+
+-`==` Igual a
+-`!=` diferente de
+-`>` mayor que
+-`<` menor que
+-`>=` mayor o igual que
+-`<=` menor o igual que
+
+Otros operadores como `TRUE` y `FALSE`, nos dirán si los operadores mencionados arriba son ciertos
+```{r}
+x <- c(3,2,1,4,1,2,1,-1,0,3)
+y <- c(4,1,2,1,1,0,0,3,0,4)
+
+x==y # nos dice cuál compración sí es igual, 
+     # en este caso, ningún elemento de x es igual a y
+     # prueba con los demás operadores
+x!=y
+```
